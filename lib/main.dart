@@ -1,4 +1,5 @@
 import 'package:bill_traker/model/transaction.dart';
+import 'package:bill_traker/widgets/chart.dart';
 import 'package:bill_traker/widgets/new_transaction.dart';
 import 'package:bill_traker/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,23 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Bill Traker',
       home: BillPage(),
+      theme: ThemeData(
+        primaryColor: Colors.brown,
+        accentColor: Colors.green,
+        textTheme: TextTheme(
+          title: TextStyle(
+              fontFamily: "Lato", fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        appBarTheme: AppBarTheme(
+          textTheme: TextTheme(
+            title: TextStyle(
+              fontFamily: "Lato",
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -25,6 +43,16 @@ class BillPage extends StatefulWidget {
 class _BillPageState extends State<BillPage> {
   String title;
   double amount;
+
+  List<Transaction> get _recentTransaction {
+    return _userTranaction.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
 
   void _addTransaction(String txTitle, double txAmount) {
     final newTx =
@@ -53,17 +81,21 @@ class _BillPageState extends State<BillPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Track your bills!"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () => _showAddTransaction(context),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                child: Text("Chart"),
-              ),
-            ),
+            Chart(_recentTransaction),
             //  NewTransaction(_addTransaction),
             TransactionList(_userTranaction),
           ],

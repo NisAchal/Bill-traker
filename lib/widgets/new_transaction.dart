@@ -44,7 +44,7 @@ class _NewTransactionState extends State<NewTransaction> {
               child: Text(
                 "Add Product",
               ),
-              color: Colors.blue,
+              color: Theme.of(context).accentColor,
               textColor: Colors.white,
               onPressed: _submitData,
             )

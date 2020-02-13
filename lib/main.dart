@@ -54,18 +54,17 @@ class _BillPageState extends State<BillPage> {
     }).toList();
   }
 
-  void _addTransaction(String txTitle, double txAmount) {
-    final newTx =
-        Transaction(title: txTitle, amount: txAmount, date: DateTime.now());
+  void _addTransaction(String txTitle, double txAmount, DateTime txDate) {
+    final newTx = Transaction(title: txTitle, amount: txAmount, date: txDate);
     setState(() {
       _userTranaction.add(newTx);
     });
   }
 
   List<Transaction> _userTranaction = [
-    Transaction(title: "Groceries", amount: 50.00, date: DateTime.now()),
-    Transaction(title: "Watch", amount: 50.00, date: DateTime.now()),
-    Transaction(title: "shoes", amount: 50.00, date: DateTime.now()),
+//    Transaction(title: "Groceries", amount: 50.00, date: DateTime.now()),
+//    Transaction(title: "Watch", amount: 50.00, date: DateTime.now()),
+//    Transaction(title: "shoes", amount: 50.00, date: DateTime.now()),
   ];
 
   void _showAddTransaction(BuildContext context) {

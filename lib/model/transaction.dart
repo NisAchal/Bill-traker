@@ -1,6 +1,7 @@
-class Transaction{
+class Transaction {
   String title;
   double amount;
   DateTime date;
-  Transaction({this.title, this.amount, this.date});
+  String id;
+  Transaction({this.title, this.amount, this.date, this.id});
 }
